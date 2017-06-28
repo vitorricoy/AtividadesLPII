@@ -5,12 +5,14 @@
  */
 package br.cefetmg.inf.cadlivros.controller;
 
-import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
- * @author aluno
+ * @author umcan
  */
-public class ServletController extends HttpServlet{
-    
+public class EditarLivro {
+    public static void processar(HttpServletRequest request){
+        
+    }
 }
