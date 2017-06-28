@@ -11,7 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 public class CriarLivro {
-    public static void processar(HttpServletRequest request) throws ServletException{
+    public static String processar(HttpServletRequest request) throws ServletException{
         Livro l = new Livro();
         l.setAutor(request.getParameter("autor"));
         String data = request.getParameter("data");
@@ -32,5 +32,6 @@ public class CriarLivro {
         } catch (PersistenciaException | NegocioException ex) {
             throw new ServletException(ex.getMessage());
         }
+        return "index.html";
     }
 }

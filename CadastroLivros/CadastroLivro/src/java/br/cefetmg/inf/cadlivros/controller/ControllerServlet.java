@@ -6,7 +6,7 @@
 package br.cefetmg.inf.cadlivros.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,13 +29,17 @@ public class ControllerServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+        String destino="";
         String pagina = request.getParameter("pagina");
         switch(pagina){
-            case "CriarLivro": break;
-            case "EditarLivro": break;
-            case "RemoverLivro": break;
-            case "ListarLivros": break;
+            case "PagListarLivros": destino = PagListarLivros.processar(request); break;
+            case "PagEditarLivro": destino = PagEditarLivro.processar(request); break;
+            case "CriarLivro": destino = CriarLivro.processar(request); break;
+            case "EditarLivro": destino = EditarLivro.processar(request); break;
+            case "RemoverLivro": destino = RemoverLivro.processar(request); break;
         }
+        RequestDispatcher rd = request.getRequestDispatcher(destino);
+        rd.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

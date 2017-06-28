@@ -5,6 +5,13 @@
  */
 package br.cefetmg.inf.cadlivros.controller;
 
+import br.cefetmg.inf.cadlivros.model.domain.Livro;
+import br.cefetmg.inf.cadlivros.model.service.ManterLivros;
+import br.cefetmg.inf.cadlivros.model.service.impl.ManterLivrosImpl;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -12,7 +19,30 @@ import javax.servlet.http.HttpServletRequest;
  * @author umcan
  */
 public class EditarLivro {
-    public static void processar(HttpServletRequest request){
-        
+    public static String processar(HttpServletRequest request){
+        String jsp = "";
+        try {
+            Livro l = new Livro();
+            l.setAutor(request.getParameter("autor"));
+            String data = request.getParameter("data");
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            try {
+                l.setData(sdf.parse(data));
+            } catch (ParseException ex) {
+                throw new ServletException(ex.getMessage());
+            }
+            l.setEditora(request.getParameter("editora"));
+            l.setIsbn(Long.parseLong(request.getParameter("isbn")));
+            l.setNome(request.getParameter("nome"));
+            l.setNumPaginas(Integer.parseInt(request.getParameter("numPaginas")));
+            l.setVolume(Integer.parseInt(request.getParameter("volume")));
+            ManterLivros manter = new ManterLivrosImpl();
+            manter.atualizar(l);
+            jsp="home.html";
+        } catch (Exception e) {
+            e.printStackTrace();
+            jsp = "";
+        }
+        return jsp;
     }
 }

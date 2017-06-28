@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Criar Livro</h1>
-        <form name="formLivro" method="post" action="/ControllerServlet?pagina=criarLivro">
+        <form name="formLivro" method="post" action="/CadastroLivro/ControllerServlet?pagina=criarLivro">
             Nome do Livro: <input name="nome" type="text" required="required"/><br><br>
             Autor do Livro: <input name="autor" type="text" required="required"/><br><br>
             ISBN do Livro: <input name="isbn" type="number" required="required"/><br><br>

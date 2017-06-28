@@ -5,6 +5,13 @@
  */
 package br.cefetmg.inf.cadlivros.controller;
 
+import br.cefetmg.inf.cadlivros.model.service.ManterLivros;
+import br.cefetmg.inf.cadlivros.model.service.impl.ManterLivrosImpl;
+import br.cefetmg.inf.util.db.exception.NegocioException;
+import br.cefetmg.inf.util.db.exception.PersistenciaException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -12,7 +19,13 @@ import javax.servlet.http.HttpServletRequest;
  * @author umcan
  */
 public class RemoverLivro {
-    public static void processar(HttpServletRequest request){
-        
+    public static String processar(HttpServletRequest request) throws ServletException{
+        ManterLivros manter = new ManterLivrosImpl();
+        try {
+            manter.remover((Long)request.getAttribute("isbn"));
+        } catch (PersistenciaException | NegocioException ex) {
+            throw new ServletException(ex.getMessage());
+        }
+        return "index.html";
     }
 }
