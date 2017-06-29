@@ -21,11 +21,11 @@ public class PagListarLivros {
         try {
             ManterLivros manter = new ManterLivrosImpl();
             List<Livro> lista = manter.pesquisarTodosLivros();
-            request.setAttribute("ListaLivros", lista);
+            request.setAttribute("listaLivros", lista);
             jsp="listarLivros.jsp";
         } catch (Exception e) {
-            e.printStackTrace();
-            jsp = "";
+            request.setAttribute("erro", e.getMessage());
+            jsp = "erro.jsp";
         }
         return jsp;
     }

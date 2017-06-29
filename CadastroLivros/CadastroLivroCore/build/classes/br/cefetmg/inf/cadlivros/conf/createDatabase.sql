@@ -5,6 +5,6 @@ CREATE TABLE IF NOT EXISTS Livro (
 	volume int,
 	data date,
 	editora text,
-	numpags int,
+	numpaginas int,
 	PRIMARY KEY( isbn )
 );

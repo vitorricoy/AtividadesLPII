@@ -20,12 +20,12 @@ public class PagEditarLivro {
         String jsp = "";
         try {
             ManterLivros manter = new ManterLivrosImpl();
-            Livro l = manter.pesquisarPorIsbn((Long)request.getAttribute("isbn"));
+            Livro l = manter.pesquisarPorIsbn(Long.parseLong(request.getParameter("isbn")));
             request.setAttribute("livro", l);
             jsp="editarLivro.jsp";
         } catch (Exception e) {
-            e.printStackTrace();
-            jsp = "";
+            request.setAttribute("erro", e.getMessage());
+            jsp = "erro.jsp";
         }
         return jsp;
     }

@@ -9,7 +9,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="br.cefetmg.inf.cadlivros.model.domain.Livro" %>
 <%  Livro livro = (Livro) request.getAttribute("livro");
-    Format formatter = new SimpleDateFormat("dd/MM/yy");  %>
+    Format formatter = new SimpleDateFormat("yyyy-MM-dd");  %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,7 +18,7 @@
     </head>
     <body>
         <h1>Editar Livro</h1>
-        <form name="formLivro" method="post" action="/ControllerServlet?pagina=editarLivro">
+        <form name="formLivro" method="post" action="/CadastroLivro/ControllerServlet?pagina=editarLivro">
             Nome do Livro: <input name="nome" type="text" required="required" value="<%=livro.getNome()%>" /><br><br>
             Autor do Livro: <input name="autor" type="text" required="required" value="<%=livro.getAutor()%>"/><br><br>
             ISBN do Livro: <input name="isbn" type="number" required="required" value="<%=livro.getIsbn()%>"/><br><br>

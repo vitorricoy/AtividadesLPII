@@ -29,14 +29,15 @@ public class ControllerServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String destino="";
+        String destino="erro.jsp";
         String pagina = request.getParameter("pagina");
         switch(pagina){
-            case "PagListarLivros": destino = PagListarLivros.processar(request); break;
-            case "PagEditarLivro": destino = PagEditarLivro.processar(request); break;
-            case "CriarLivro": destino = CriarLivro.processar(request); break;
-            case "EditarLivro": destino = EditarLivro.processar(request); break;
-            case "RemoverLivro": destino = RemoverLivro.processar(request); break;
+            case "pagListarLivros": destino = PagListarLivros.processar(request); break;
+            case "pagEditarLivro": destino = PagEditarLivro.processar(request); break;
+            case "criarLivro": destino = CriarLivro.processar(request); break;
+            case "pagCriarLivro": destino = "criarLivro.jsp"; break;
+            case "editarLivro": destino = EditarLivro.processar(request); break;
+            case "removerLivro": destino = RemoverLivro.processar(request); break;
         }
         RequestDispatcher rd = request.getRequestDispatcher(destino);
         rd.forward(request, response);

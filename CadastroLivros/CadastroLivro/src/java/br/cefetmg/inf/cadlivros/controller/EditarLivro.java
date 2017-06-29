@@ -10,7 +10,6 @@ import br.cefetmg.inf.cadlivros.model.service.ManterLivros;
 import br.cefetmg.inf.cadlivros.model.service.impl.ManterLivrosImpl;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,7 +24,7 @@ public class EditarLivro {
             Livro l = new Livro();
             l.setAutor(request.getParameter("autor"));
             String data = request.getParameter("data");
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 l.setData(sdf.parse(data));
             } catch (ParseException ex) {
@@ -38,10 +37,10 @@ public class EditarLivro {
             l.setVolume(Integer.parseInt(request.getParameter("volume")));
             ManterLivros manter = new ManterLivrosImpl();
             manter.atualizar(l);
-            jsp="home.html";
+            jsp="index.html";
         } catch (Exception e) {
-            e.printStackTrace();
-            jsp = "";
+            request.setAttribute("erro", e.getMessage());
+            jsp = "erro.jsp";
         }
         return jsp;
     }

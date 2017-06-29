@@ -67,7 +67,7 @@ public class LivroDAOImpl implements LivroDAO{
     public boolean atualizar(Livro livro) throws PersistenciaException{
         try {
             Connection connection = ConnectionManager.getInstance().getConnection();
-            String sql = "UPDATE livro SET nome = ?, autor = ?, volume = ?, data = ?, editora = ?, numpaginas = ? WHERE id = ?";
+            String sql = "UPDATE livro SET nome = ?, autor = ?, volume = ?, data = ?, editora = ?, numpaginas = ? WHERE isbn = ?";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setString(1, livro.getNome());
             pstmt.setString(2, livro.getAutor());
@@ -104,7 +104,8 @@ public class LivroDAOImpl implements LivroDAO{
                 livro.setAutor(rs.getString("autor"));
                 livro.setData(rs.getDate("data"));
                 livro.setEditora(rs.getString("editora"));
-                livro.setNumPaginas(rs.getInt("numpags"));
+                livro.setNumPaginas(rs.getInt("numpaginas"));
+                livro.setVolume(rs.getInt("volume"));
             }
 
             rs.close();
@@ -126,9 +127,8 @@ public class LivroDAOImpl implements LivroDAO{
             PreparedStatement pstmt = connection.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
 
-            ArrayList<Livro> todosLivros = null;
+            ArrayList<Livro> todosLivros = new ArrayList<>();
             if (rs.next()) {
-                todosLivros = new ArrayList<>();
                 do {
                     Livro livro = new Livro();
                     livro.setIsbn(rs.getLong("isbn"));
@@ -136,14 +136,14 @@ public class LivroDAOImpl implements LivroDAO{
                     livro.setAutor(rs.getString("autor"));
                     livro.setData(rs.getDate("data"));
                     livro.setEditora(rs.getString("editora"));
-                    livro.setNumPaginas(rs.getInt("numpags"));
+                    livro.setNumPaginas(rs.getInt("numpaginas"));
+                    livro.setVolume(rs.getInt("volume"));
                     todosLivros.add(livro);
                 } while (rs.next());
             }
             rs.close();
             pstmt.close();
             connection.close();
-
             return todosLivros;
         } catch (Exception e) {
             e.printStackTrace();

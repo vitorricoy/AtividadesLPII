@@ -30,7 +30,8 @@ public class CriarLivro {
         try {
             manter.cadastrar(l);
         } catch (PersistenciaException | NegocioException ex) {
-            throw new ServletException(ex.getMessage());
+            request.setAttribute("erro", ex.getMessage());
+            return "erro.jsp";
         }
         return "index.html";
     }

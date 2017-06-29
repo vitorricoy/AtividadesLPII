@@ -22,9 +22,10 @@ public class RemoverLivro {
     public static String processar(HttpServletRequest request) throws ServletException{
         ManterLivros manter = new ManterLivrosImpl();
         try {
-            manter.remover((Long)request.getAttribute("isbn"));
+            manter.remover(Long.parseLong(request.getParameter("isbn")));
         } catch (PersistenciaException | NegocioException ex) {
-            throw new ServletException(ex.getMessage());
+            request.setAttribute("erro", ex.getMessage());
+            return "erro.jsp";
         }
         return "index.html";
     }
