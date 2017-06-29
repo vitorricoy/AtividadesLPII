@@ -8,17 +8,18 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
+    <head> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Listagem de Livro</title>
     </head>
     <body>
         <h1>Livros Cadastrados</h1>
-        <table style="border-collapse: collapse;">
+        
             <%
                 List<Livro> lista = (List<Livro>) request.getAttribute("listaLivros");
                 if(!lista.isEmpty()){
             %>
+            <table style="border-collapse: collapse;">
                 <tr>
                     <th style="border: 1px solid black">Nome</th>
                     <th style="border: 1px solid black">Editar</th>
@@ -43,7 +44,6 @@
             <%
                 }else{
             %>
-            </table>
             <p>Sem Livros</p>
             <%
               }  
