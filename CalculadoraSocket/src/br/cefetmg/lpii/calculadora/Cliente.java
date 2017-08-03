@@ -20,7 +20,6 @@ public class Cliente {
 	try{		
             System.out.println("Conectando ao servidor");
             Socket c = new Socket ("localhost", 2222);
-            
             ObjectOutputStream saida = new ObjectOutputStream(c.getOutputStream());
             String op;
             boolean errado=true;
