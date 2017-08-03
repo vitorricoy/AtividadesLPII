@@ -37,14 +37,19 @@ public class CalculadoraImpl implements Calculadora{
 
     @Override
     public Double[][] multiplicacaoMatriz(Double[][] a, Double[][] b) throws ExcecaoCalculadora {
-        Double[][] res = new Double[a[0].length][b.length];
-        for (int i=0; i < a.length; i++){
-            for (int j= 0; j < b[0].length; j++){
-		for (int x= 0; x < a[j][j]; x++){
-                    res[i][j] += a[i][x] * b[x][j];
+        Double[][] res = new Double[a.length][b[0].length];
+        for(int I=0; I<res.length; I++){
+            for(int J=0; J<res[0].length; J++){
+                res[I][J]=new Double(0);
+            }
+        }
+        for (int I=0; I<a.length; I++) {
+            for (int J=0; J<b[0].length; J++) {
+                for (int K=0; K<a[0].length; K++) {
+                    res[I][J] += a[I][K] * b[K][J];
                 }
             }
-	}
+        }
         return res;
     }
 

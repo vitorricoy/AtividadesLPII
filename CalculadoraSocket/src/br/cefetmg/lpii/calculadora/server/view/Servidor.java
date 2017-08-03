@@ -54,6 +54,12 @@ public class Servidor {
                         }
                         System.out.println("");
                     }
+                    for(int I=0; I<matrizB.length; I++){
+                        for(int J=0; J<matrizB[0].length; J++){
+                            System.out.print(matrizB[I][J]+ " ");
+                        }
+                        System.out.println("");
+                    }
                     Double[][] res = calc.multiplicacaoMatriz(matrizA, matrizB);
                     com.enviarObjeto(res);
                     break;
