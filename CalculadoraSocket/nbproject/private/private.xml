@@ -3,13 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Aluno/Desktop/LP/CalculadoraSocket/src/br/cefetmg/lpii/calculadora/client/view/Cliente.java</file>
-            <file>file:/C:/Users/Aluno/Desktop/LP/CalculadoraSocket/src/br/cefetmg/lpii/calculadora/server/view/Servidor.java</file>
-            <file>file:/C:/Users/Aluno/Desktop/LP/CalculadoraSocket/src/br/cefetmg/lpii/calculadora/client/service/ProxyCalculadora.java</file>
-            <file>file:/C:/Users/Aluno/Desktop/LP/CalculadoraSocket/src/br/cefetmg/lpii/calculadora/server/comunicacao/Comunicacao.java</file>
-            <file>file:/C:/Users/Aluno/Desktop/LP/CalculadoraSocket/src/br/cefetmg/lpii/calculadora/server/service/CalculadoraImpl.java</file>
-            <file>file:/C:/Users/Aluno/Desktop/LP/CalculadoraSocket/src/br/cefetmg/lpii/calculadora/model/service/Calculadora.java</file>
-            <file>file:/C:/Users/Aluno/Desktop/LP/CalculadoraSocket/src/br/cefetmg/lpii/calculadora/model/domain/RaizesBhaskara.java</file>
+            <file>file:/I:/GitPortable/Data/home/AtividadesLPII/CalculadoraSocket/src/br/cefetmg/lpii/calculadora/server/view/Servidor.java</file>
+            <file>file:/I:/GitPortable/Data/home/AtividadesLPII/CalculadoraSocket/src/br/cefetmg/lpii/calculadora/server/service/CalculadoraImpl.java</file>
+            <file>file:/I:/GitPortable/Data/home/AtividadesLPII/CalculadoraSocket/src/br/cefetmg/lpii/calculadora/server/comunicacao/Comunicacao.java</file>
         </group>
     </open-files>
 </project-private>
