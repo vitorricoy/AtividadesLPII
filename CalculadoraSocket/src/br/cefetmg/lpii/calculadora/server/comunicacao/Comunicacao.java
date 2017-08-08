@@ -11,8 +11,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -21,20 +19,9 @@ import java.util.logging.Logger;
 public class Comunicacao {
     private int porta;
     private Socket c;
-    private ServerSocket s;
     
-    public Comunicacao(int porta) throws ExcecaoConexao {
-        this.porta = porta;
-        try {
-            s = new ServerSocket(porta);
-            c = s.accept();
-        } catch (IOException ex) {
-            throw new ExcecaoConexao("Erro ao escutar e aceitar conexão na porta: " +porta);
-        }
-    }
-    
-    public Comunicacao() throws ExcecaoConexao {
-        this(2222);
+    public Comunicacao(Socket c) throws ExcecaoConexao {
+        this.c = c;
     }
     
     public void enviarObjeto(Object o) throws ExcecaoConexao{
@@ -61,7 +48,6 @@ public class Comunicacao {
     
     public void fecharConexao() throws ExcecaoConexao{
         try {
-            s.close();
             c.close();
         } catch (IOException ex) {
             throw new ExcecaoConexao("Erro ao fechar conexão");

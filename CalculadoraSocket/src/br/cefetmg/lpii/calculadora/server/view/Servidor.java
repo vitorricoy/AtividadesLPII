@@ -7,7 +7,9 @@ package br.cefetmg.lpii.calculadora.server.view;
 
 import br.cefetmg.lpii.calculadora.model.exception.ExcecaoConexao;
 import br.cefetmg.lpii.calculadora.server.comunicacao.Comunicacao;
-import br.cefetmg.lpii.calculadora.server.service.CalculadoraImpl;
+import br.cefetmg.lpii.calculadora.server.service.AdapterCalculadora;
+import java.io.IOException;
+import java.net.ServerSocket;
 
 /**
  *
@@ -15,15 +17,22 @@ import br.cefetmg.lpii.calculadora.server.service.CalculadoraImpl;
  */
 public class Servidor {
     public static void main(String[] args){
+        ServerSocket s = null;
+        try {
+            s = new ServerSocket(2222);
+        } catch (IOException ex) {
+            System.out.println("Erro: " + ex.getMessage());
+            System.exit(0);
+        }
         while(true){
             try {
                 System.out.println("Esperando conexão");
-                CalculadoraImpl calc = new CalculadoraImpl();
-                Comunicacao com = new Comunicacao();
+                AdapterCalculadora calc = new AdapterCalculadora();
+                Comunicacao com = new Comunicacao(s.accept());
                 calc.setCom(com);
                 Thread requisicao = new Thread(calc);
                 requisicao.start();
-            } catch (ExcecaoConexao ex) {
+            } catch (ExcecaoConexao | IOException ex) {
                 System.out.println("Erro: " + ex.getMessage());
             }
         }
