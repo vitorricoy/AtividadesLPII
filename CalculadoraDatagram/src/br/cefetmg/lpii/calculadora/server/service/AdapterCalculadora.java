@@ -18,16 +18,18 @@ public class AdapterCalculadora implements Runnable{
     private Comunicacao com;
     private CalculadoraImpl calc;
     private char op;
-    private int cliente;
+    private int porta;
+    private String ip;
     private double a;
     private double b;
     
-    public AdapterCalculadora(int cliente, double a, double b, char op) {
+    public AdapterCalculadora(int porta, String ip, double a, double b, char op) {
         calc = new CalculadoraImpl();
         this.a=a;
         this.b=b;
         this.op=op;
-        this.cliente=cliente;
+        this.ip=ip;
+        this.porta=porta;
     }
     
     public Comunicacao getCom() {
@@ -54,12 +56,20 @@ public class AdapterCalculadora implements Runnable{
         this.op = op;
     }
 
-    public int getCliente() {
-        return cliente;
+    public int getPorta() {
+        return porta;
     }
 
-    public void setCliente(int cliente) {
-        this.cliente = cliente;
+    public void setPorta(int porta) {
+        this.porta = porta;
+    }
+
+    public String getIp() {
+        return ip;
+    }
+
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
     public double getA() {
@@ -84,20 +94,16 @@ public class AdapterCalculadora implements Runnable{
             System.out.println("Thread");
             switch (op) {
                 case '+':
-                    com.enviarDados(calc.soma(a, b), com.getClientes().get(cliente), 2223);
-                    System.out.println("Enviou resposta para " + com.getClientes().get(cliente));
+                    com.enviarDados(calc.soma(a, b), ip, porta);
                     break;
                 case '-':
-                    com.enviarDados(calc.subtracao(a, b), com.getClientes().get(cliente), 2223);
-                    System.out.println("Enviou resposta para " + com.getClientes().get(cliente));
+                    com.enviarDados(calc.subtracao(a, b), ip, porta);
                     break;
                 case '*':
-                    com.enviarDados(calc.multiplicacao(a, b), com.getClientes().get(cliente), 2223);
-                    System.out.println("Enviou resposta para " + com.getClientes().get(cliente));
+                    com.enviarDados(calc.multiplicacao(a, b), ip, porta);
                     break;
                 case '/':
-                    com.enviarDados(calc.divisao(a, b), com.getClientes().get(cliente), 2223);
-                    System.out.println("Enviou resposta para " + com.getClientes().get(cliente));
+                    com.enviarDados(calc.divisao(a, b), ip, porta);
                     break;
             }
         } catch (ExcecaoConexao | ExcecaoCalculadora ex) {

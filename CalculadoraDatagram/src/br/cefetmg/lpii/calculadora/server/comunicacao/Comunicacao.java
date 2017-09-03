@@ -6,6 +6,7 @@
 package br.cefetmg.lpii.calculadora.server.comunicacao;
 
 import br.cefetmg.lpii.calculadora.model.exception.ExcecaoConexao;
+import br.cefetmg.lpii.calculadora.server.domain.DadosCliente;
 import br.cefetmg.lpii.calculadora.util.ByteConverter;
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -13,8 +14,6 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -25,24 +24,12 @@ public class Comunicacao {
     private DatagramSocket c;
     private String ip;
     private InetAddress address;
-    private List<String> clientes;
     
     public Comunicacao(int porta, String ip) throws ExcecaoConexao{
         try {
             c=new DatagramSocket(porta);
             address = InetAddress.getByName(ip);
-            clientes = new ArrayList<>();
         } catch (SocketException | UnknownHostException ex) {
-            throw new ExcecaoConexao(ex.getMessage());
-        }
-    }
-    
-    public Comunicacao(DatagramSocket c, int porta, String ip) throws ExcecaoConexao{
-        try {
-            this.c=c;
-            address = InetAddress.getByName(ip);
-            clientes = new ArrayList<>();
-        } catch (UnknownHostException ex) {
             throw new ExcecaoConexao(ex.getMessage());
         }
     }
@@ -53,19 +40,25 @@ public class Comunicacao {
     
     public void enviarDados(double res, String ip, int porta) throws ExcecaoConexao{
         try {
-            DatagramPacket packet = new DatagramPacket(ByteConverter.toByteArray(res), 8, InetAddress.getByName(ip), 2222);
+            DatagramPacket packet = new DatagramPacket(ByteConverter.toByteArray(res), 8, InetAddress.getByName(ip), porta);
             c.send(packet);
         } catch (IOException ex) {
             throw new ExcecaoConexao("Erro ao enviar objeto ao cliente");
         }
     }
     
-    public byte[] receberDados() throws ExcecaoConexao{
-        byte[] buf = new byte[32];
+    public DadosCliente receberDados() throws ExcecaoConexao{
+        byte[] buf = new byte[24];
         try {
-            DatagramPacket packet = new DatagramPacket(buf, 32);
+            DatagramPacket packet = new DatagramPacket(buf, 24);
             c.receive(packet);
-            return buf;
+            byte[] op = new byte[8];
+            System.arraycopy(buf, 0, op, 0, 8);
+            byte[] a = new byte[8];
+            System.arraycopy(buf, 8, a, 0, 8);
+            byte[] b = new byte[8];
+            System.arraycopy(buf, 16, b, 0, 8);
+            return new DadosCliente(ByteConverter.toChar(op), ByteConverter.toDouble(a), ByteConverter.toDouble(b), packet.getAddress().getHostAddress(), packet.getPort());
         } catch (IOException ex) {
             throw new ExcecaoConexao("Erro ao receber objeto do servidor ("+ip+", "+porta+")");
         }
@@ -101,14 +94,6 @@ public class Comunicacao {
 
     public void setAddress(InetAddress address) {
         this.address = address;
-    }
-
-    public List<String> getClientes() {
-        return clientes;
-    }
-
-    public void setClientes(List<String> clientes) {
-        this.clientes = clientes;
     }
     
 }
